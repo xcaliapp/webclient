@@ -1,17 +1,13 @@
 import React from "react";
 import { isEqual } from "lodash";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { LinearProgress, useMediaQuery } from "@mui/material";
+import { createTheme, CssBaseline, LinearProgress, ThemeProvider, useColorScheme, useMediaQuery } from "@mui/material";
 import { Excalidraw, MainMenu, THEME } from "@excalidraw/excalidraw";
 import { OpenDrawingDialog } from "./features/drawing/OpenDrawing";
 import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { selectSavedDrawing, selectDrawingToEditStatus, selectCurrentDrawingContent, drawingContentChanged } from "./features/drawing/drawingSlice";
 import { SaveDrawingDialog } from "./features/drawing/SaveDrawing";
-
-import { ThemeProvider, createTheme, useColorScheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-
 
 import "@excalidraw/excalidraw/index.css";
 
@@ -72,9 +68,14 @@ const App = () => {
 		}
 	});
 
+	const lightTheme = createTheme({
+		colorSchemes: {
+			light: true
+		}
+	});
 
 	return (
-		<ThemeProvider theme={darkTheme}>
+		<ThemeProvider theme={prefersDarkMode ? darkTheme : lightTheme}>
 			<CssBaseline />
 
 			<div>
